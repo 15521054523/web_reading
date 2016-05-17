@@ -3,8 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui">
-        <meta name="format-detection" content="telephone=no">
-        <link rel="icon" href="book.ico" type="image/x-icon" />
+        <meta name="format-detection" content="telephone=no">        <link rel="icon" href="book.ico" type="image/x-icon" />
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -73,8 +72,7 @@
                     </div>
                     <div class="bk-container">
                         <div class="bk-container-current"></div>
-                    </div>
-                    <div class="bk-container active" data-bgcolor="#F7EEE5" data-fncolor="#555"></div>
+                    </div>                    <div class="bk-container active" data-bgcolor="#F7EEE5" data-fncolor="#555"></div>
                     <div class="bk-container" data-bgcolor="#E9DFC7" data-fncolor="#555"></div>
                     <div class="bk-container" data-bgcolor="#A4A4A4" data-fncolor="#555"></div>
                     <div class="bk-container" data-bgcolor="#CDEFCE" data-fncolor="#555"></div>
@@ -124,24 +122,21 @@
                         }
                         return {
                             StorageGetter:StorageGetter,
-                            StorageSetter:StorageSetter
-                            StorageSetter: StorageSetter
-                        }
+                            StorageSetter:StorageSetter                            StorageSetter: StorageSetter
+=======                        }
                     })();
 
                 var Dom = {
                         top_nav:$('#top-nav'),
                         bottom_nav:$('.bottom-nav'),
                         font_button:$('#font-button'),
-                        font_container:$('#font-container')
-                        night_button:$('#night-button'),
+                        font_container:$('#font-container')                        night_button:$('#night-button'),
                         font_container:$('#font-container'),
                         bk_container:$('.bk-container')
-                    }
+=======                    }
 
                 var Win = $(window);
-                var Doc = $(document);
-                var Body = $('body');
+                var Doc = $(document);                var Body = $('body');
                 var RootContainer = $('#fiction_container');
                 var initFontSize = Util.StorageGetter('font_size') == null ? 14 : Util.StorageGetter('font_size');
                 initFontSize = parseInt(initFontSize);
@@ -218,7 +213,6 @@
                     $('#night-button').on('click',function(){
                         //todo 触发背景切换的事件
                     });
-
                     //放大字体
                     $('#large-font').on('click',function(){
                         if(initFontSize > 20){
