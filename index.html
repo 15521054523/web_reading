@@ -23,19 +23,7 @@
 
             <!-- 文章内容容器 -->
             <div class="m-read-content" id="fiction_container">
-                <h4>你自己觉得么两样</h4>
-                <p>
-                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
-                </p>
-                <p>
-                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
-                </p>
-                <p>
-                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
-                </p>
-                <p>
-                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
-                </p>
+       
             </div>
 
             <!-- 边栏 -->
@@ -103,7 +91,20 @@
                         var StorageSetter = function(key,val){
                             return localStorage.setItem(prefix + key,val);
                         }
+                        var getJSONP = function(url,callback){
+                        	return $.jsonp({
+                        		url :url,
+                        		cache :true,
+                        		callback :'duokan_fiction_chapter',
+                        		success :function(result){
+                        			var data = $.base64.decode(result);
+                        			var json = decodeURIComponent(escape(data));
+                        			callback(json);
+                        		}
+                        	});
+                        }
                         return {
+                        	getJSONP:getJSONP,
                             StorageGetter:StorageGetter,
                             StorageSetter:StorageSetter                            
                         }
@@ -119,7 +120,10 @@
                     }
 
                 var Win = $(window);
-                var Doc = $(document);                var Body = $('body');
+                var Doc = $(document); 
+                var readerModel;
+                var readerUI;
+                var Body = $('body');
                 var RootContainer = $('#fiction_container');
                 var initFontSize = Util.StorageGetter('font_size') == null ? 14 : Util.StorageGetter('font_size');
                 initFontSize = parseInt(initFontSize);
@@ -157,16 +161,85 @@
 
                 function main(){
                     //todo 整个项目的入口函数
+                    readerModel = ReaderModel();
+                    readerUI = ReaderBaseFrame(RootContainer);
+                    readerModel.init(function(data){
+                    	readerUI(data);
+                    });
                     EventHanlder();
                 }
 
 
                 function ReaderModel(){
                     //todo 实现和阅读器相关的数据交互的方法
+                    var Chapter_id;
+                    var ChapterTotal;
+                    var init = function(UIcallback){
+                    	getFictionInfo(function(){
+                    		getCurChapterContent(Chapter_id,function(data){
+                    			//TODO...
+                    			UIcallback && UIcallback(data);
+                    		});
+                    	});
+                    }
+                    //获取文章的信息
+                    var getFictionInfo = function(callback){
+                    	$.get('data/chapter.json',function(data){
+                    		//todo 获得章节信息的回调
+                    		Chapter_id = data.chapters[1].chapter_id;
+                    		ChapterTotal = data.chapters.length;
+                    		callback && callback();
+                    	},'json');
+                    }
+                    //获取文章里面的内容
+                    var getCurChapterContent = function(charpter_id,callback){
+                    	$.get('data/data' + charpter_id + '.json',function(data){
+                    		if(data.result == 0){
+                    			var url = data.jsonp;
+                    			Util.getJSONP(url,function(data){
+                    				callback && callback(data);
+                    			});
+                    		}
+                    	},'json')
+                    }
+                    //上一页
+                    var prevChapter = function(UIcallback){
+                    	Chapter_id = parseInt(Chapter_id,10);
+                    	if(Chapter_id == 0){
+                    		return;
+                    	}
+                    	Chapter_id -= 1;
+                    	getCurChapterContent(Chapter_id,UIcallback);
+                    }
+                    //下一页
+                    var nextChapter = function(UIcallback){
+                    	Chapter_id = parseInt(Chapter_id,10);
+                    	if(Chapter_id == ChapterTotal){
+                    		return;
+                    	}
+                    	Chapter_id += 1;
+                    	getCurChapterContent(Chapter_id,UIcallback);
+                    }
+                    return {
+                    	init : init,
+                    	prevChapter:prevChapter,
+                    	nextChapter:nextChapter
+                    }
                 }
 
-                function ReaderBaseFrame(){
+                function ReaderBaseFrame(container){
                     //todo 渲染基本的UI结构
+                    function parseChapterData(jsonData){
+                    	var jsonObj = JSON.parse(jsonData);
+                    	var html = 	'<h4>' + jsonObj.t + '</h4>';
+                    	for(var i = 0; i < jsonObj.p.length; i++){
+                    		html += '<p>' + jsonObj.p[i] + '</p>';
+                    	}
+                    	return html;
+                    }
+                    return function(data){
+                    	container.html(parseChapterData(data));
+                    }
                 }
 
                 function EventHanlder(){
@@ -175,6 +248,7 @@
                         if(Dom.top_nav.css('display') == 'none'){
                             Dom.top_nav.show();
                             Dom.bottom_nav.show();
+                            Dom.font_button.children('i').removeClass('icon-font-active');
                         } else {
                             Dom.top_nav.hide();
                             Dom.bottom_nav.hide();
@@ -235,6 +309,24 @@
                         Dom.bottom_nav.hide();
                         Dom.font_container.hide();
                     });
+
+                    //上一章
+                    $('#prev_button').on('click',function(){
+                    	//获得章节的翻页数据->把数据拿出来渲染
+                    	readerModel.prevChapter(function(data){
+                    		readerUI(data);
+                    	});
+                    });
+
+                    //下一章
+                    $('#next_button').on('click',function(){
+                    	//获得章节的翻页数据->把数据拿出来渲染
+                    	readerModel.nextChapter(function(data){
+                    		readerUI(data);
+                    	});
+                    });
+
+
                 }
 
                 main();
