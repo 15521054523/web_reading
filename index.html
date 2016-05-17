@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="icon" href="book.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+
+        <div class="container" id="root">
+
+            <!-- 顶部栏 -->
+            <div class="top-nav" id="top-nav" style="display: none;">
+                <div class="icon-back"></div>
+                <div class="nav-title">返回书架</div>
+            </div>
+
+            <!-- 文章标题 -->
+            <div id="fiction_chapter_title"></div>
+
+            <!-- 文章内容容器 -->
+            <div class="m-read-content" id="fiction_container">
+                <h4>你自己觉得么两样</h4>
+                <p>
+                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
+                </p>
+                <p>
+                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
+                </p>
+                <p>
+                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
+                </p>
+                <p>
+                  这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。这个社会，就是这样。你自己觉得跟他们没什么两样，但一个大学毕业生的身份就跟这些初中生毕业的女工有了天壤之别。更何况她身材好，样貌好，气质好，超市的男工处处迁就她，就更让那些女工嫉妒。
+                </p>
+            </div>
+
+            <!-- 边栏 -->
+            <div class="m-button-bar">
+                <ul class="u-tab">
+                    <li id="prev_button">上一章</li>
+                    <li id="next_button">下一章</li>
+                </ul>
+            </div>
+
+            <!-- 底部栏 -->
+            <div class="nav-pannel" id="font-container" style="display: none;">
+                <div class="child-mod">
+                    <span>字号</span>
+                    <button class="font-size-button" id="large-font">大</button>
+                    <button class="font-size-button" id="small-font">小</button>
+                </div>
+                <div class="child-mod">
+                    <span>背景</span>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container active" data-bgcolor="#F7EEE5" data-fncolor="#555"></div>
+                    <div class="bk-container" data-bgcolor="#E9DFC7" data-fncolor="#555"></div>
+                    <div class="bk-container" data-bgcolor="#A4A4A4" data-fncolor="#555"></div>
+                    <div class="bk-container" data-bgcolor="#CDEFCE" data-fncolor="#555"></div>
+                    <div class="bk-container" data-bgcolor="#283548" data-fncolor="#7685a2"></div>
+                    <div class="bk-container" data-bgcolor="#0F1410" data-fncolor="#505651"></div>
+                </div>
+            </div>
+            <div class="bottom-nav" id="botton-nav" style="display: none;">
+                <ul class="botton-ul">
+                    <li>
+                        <i class="icon-menu"></i>
+                        <span>目录</span>
+                    </li>
+                    <li id="font-button">
+                        <i class="icon-font"></i>
+                        <span>字体</span>
+                    </li>
+                    <li id="night-button">
+                        <i class="icon-night"></i>
+                        <span>夜间</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 中间虚拟层 -->
+            <div class="m-artical-action">
+                <div class="artical-action-mid" id="action_mid"></div>
+            </div>
+
+        </div>
+        <script src="lib/zepto.min.js"></script>
+        <script>
+            window.jQuery = $;
+        </script>
+        <script src="js/jquery.base64.js"></script>
+        <script src="js/jquery.jsonp.js"></script>
+        <script>
+            (function(){
+
+                var Util=(function(){
+                        var prefix = 'html5_reader_';
+                        var StorageGetter = function(key){
+                            return localStorage.getItem(prefix + key);
+                        }
+                        var StorageSetter = function(key,val){
+                            return localStorage.setItem(prefix + key,val);
+                        }
+                        return {
+                            StorageGetter:StorageGetter,
+                            StorageSetter:StorageSetter
+                            StorageSetter: StorageSetter
+                        }
+                    })();
+
+                var Dom = {
+                        top_nav:$('#top-nav'),
+                        bottom_nav:$('.bottom-nav'),
+                        font_button:$('#font-button'),
+                        font_container:$('#font-container')
+                        night_button:$('#night-button'),
+                        font_container:$('#font-container'),
+                        bk_container:$('.bk-container')
+                    }
+
+                var Win = $(window);
+                var Doc = $(document);
+                var Body = $('body');
+                var RootContainer = $('#fiction_container');
+                var initFontSize = Util.StorageGetter('font_size') == null ? 14 : Util.StorageGetter('font_size');
+                initFontSize = parseInt(initFontSize);
+                RootContainer.css('font-size',initFontSize);
+
+                var initpageIndex = Util.StorageGetter('li_index') == null ? 0 : Util.StorageGetter('li_index');
+                var nightFlag = false;  //白天黑夜开关按钮，默认是白天 false
+
+                //背景颜色 & 字体颜色 初始化
+                styleModelFn(Dom.bk_container.eq(parseInt(initpageIndex)));
+
+                function styleModelFn(ele){
+                	var initBgColor = ele.attr('data-bgcolor');	
+                	var initFnColor = ele.attr('data-fncolor');
+                	var initLiIndex = Dom.bk_container.size() - 1;
+                	var eleIndex = ele.index() - 1;
+                	Dom.bk_container.removeClass('active');
+	                ele.addClass('active');
+                	Body.css('background',initBgColor);
+	                RootContainer.css('color',initFnColor);
+                	Util.StorageSetter('bg_color',initBgColor);
+	                Util.StorageSetter('fn_color',initFnColor);
+	                Util.StorageSetter('li_index',eleIndex);
+	                if(eleIndex == initLiIndex){
+	                	Dom.night_button.children('i').addClass('icon-daytime');
+                    	Dom.night_button.children('span').text('白天');	
+                    	nightFlag = true;
+	                }else{
+	                	Dom.night_button.children('i').removeClass('icon-daytime');
+                    	Dom.night_button.children('span').text('夜间');
+                    	nightFlag = false;
+	                }
+	                console.log(nightFlag);
+                } 
+
+                function main(){
+                    //todo 整个项目的入口函数
+                    EventHanlder();
+                }
+
+
+                function ReaderModel(){
+                    //todo 实现和阅读器相关的数据交互的方法
+                }
+
+                function ReaderBaseFrame(){
+                    //todo 渲染基本的UI结构
+                }
+
+                function EventHanlder(){
+                    //todo 交互的事件绑定
+                    $('#action_mid').on('click',function(){
+                        if(Dom.top_nav.css('display') == 'none'){
+                            Dom.top_nav.show();
+                            Dom.bottom_nav.show();
+                        } else {
+                            Dom.top_nav.hide();
+                            Dom.bottom_nav.hide();
+                            Dom.font_container.hide();
+                        }
+                    });
+
+                    Dom.font_button.on('click',function(){
+                        //todo 唤醒字体面板
+                        if(Dom.font_container.css('display') == 'none'){
+                            Dom.font_container.show();
+                            Dom.font_button.children('i').addClass('icon-font-active');
+                        } else {
+                            Dom.font_container.hide();
+                            Dom.font_button.children('i').removeClass('icon-font-active');
+                        }
+                    });
+
+                    $('#night-button').on('click',function(){
+                        //todo 触发背景切换的事件
+                    });
+
+                    //放大字体
+                    $('#large-font').on('click',function(){
+                        if(initFontSize > 20){
+                            return;
+                        }
+                        initFontSize += 1;
+                        RootContainer.css('font-size',initFontSize + 'px');
+                        Util.StorageSetter('font_size',initFontSize);
+                    });
+
+                    //缩小字体
+                    $('#small-font').on('click',function(){
+                        if(initFontSize < 12){
+                            return;
+                        }
+                        initFontSize -= 1;
+                        RootContainer.css('font-size',initFontSize + 'px');
+                        Util.StorageSetter('font_size',initFontSize);
+                    });
+
+                    //背景切换
+                	Dom.bk_container.on('click',function(){
+                		styleModelFn($(this));
+                	});
+
+                    //白天黑夜切换
+                    Dom.night_button.on('click',function(){
+                    	if(nightFlag){
+                    		styleModelFn(Dom.bk_container.eq(0));
+                    	}else{
+                    		styleModelFn(Dom.bk_container.eq(Dom.bk_container.size() - 1));
+                    	}
+                    });
+
+                    Win.on('scroll',function(){
+                        Dom.top_nav.hide();
+                        Dom.bottom_nav.hide();
+                        Dom.font_container.hide();
+                    });
+                }
+
+                main();
+
+            })();
+        </script>
+    </body>
+</html>
