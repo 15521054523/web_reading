@@ -83,6 +83,8 @@
         <script>
             (function(){
 
+            	'use strict';
+
                 var Util=(function(){
                         var prefix = 'html5_reader_';
                         var StorageGetter = function(key){
@@ -175,22 +177,72 @@
                     var Chapter_id;
                     var ChapterTotal;
                     var init = function(UIcallback){
+
+                    	/*
                     	getFictionInfo(function(){
                     		getCurChapterContent(Chapter_id,function(data){
                     			//TODO...
                     			UIcallback && UIcallback(data);
                     		});
+                    	});*/
+
+                    	getFictionInfoPromise().then(function(d){
+                    		return getCurChapterContentPromise();
+                    	}).then(function(data){
+                    		UIcallback && UIcallback(data);
                     	});
                     }
                     //获取文章的信息
                     var getFictionInfo = function(callback){
                     	$.get('data/chapter.json',function(data){
                     		//todo 获得章节信息的回调
-                    		Chapter_id = data.chapters[1].chapter_id;
+                    		Chapter_id = Util.StorageGetter('page');
+                    		if(Chapter_id == null){
+                    			Chapter_id = data.chapters[1].chapter_id;
+                    		}
                     		ChapterTotal = data.chapters.length;
                     		callback && callback();
                     	},'json');
                     }
+
+                    //ES6
+                    var getFictionInfoPromise = function(){
+                    	return new Promise(function(resolve,reject){
+	                    	$.get('data/chapter.json',function(data){
+	                    		//todo 获得章节信息的回调
+	                    		if(data.result == 0){
+	                    			Chapter_id = Util.StorageGetter('page');
+		                    		if(Chapter_id == null){
+		                    			Chapter_id = data.chapters[1].chapter_id;
+		                    		}
+		                    		ChapterTotal = data.chapters.length;
+		                    		resolve();
+	                    		}else{
+	                    			reject();
+	                    		}
+	                    		
+
+	                    	},'json');
+                    	});
+                    }
+
+                    var getCurChapterContentPromise = function(){
+                    	return new Promise(function(resolve,reject){
+	                    	$.get('data/data' + Chapter_id + '.json',function(data){
+	                    		if(data.result == 0){
+	                    			var url = data.jsonp;
+	                    			Util.getJSONP(url,function(data){
+	                    				//callback && callback(data);
+	                    				resolve(data);
+	                    			});
+	                    		}else{
+	                    			reject({msg:'fail'});
+	                    		}
+	                    	},'json')
+                    	});
+                    }
+
+
                     //获取文章里面的内容
                     var getCurChapterContent = function(charpter_id,callback){
                     	$.get('data/data' + charpter_id + '.json',function(data){
@@ -205,20 +257,22 @@
                     //上一页
                     var prevChapter = function(UIcallback){
                     	Chapter_id = parseInt(Chapter_id,10);
-                    	if(Chapter_id == 0){
+                    	if(Chapter_id == 1){
                     		return;
                     	}
                     	Chapter_id -= 1;
                     	getCurChapterContent(Chapter_id,UIcallback);
+                    	Util.StorageSetter('page',Chapter_id);
                     }
                     //下一页
                     var nextChapter = function(UIcallback){
                     	Chapter_id = parseInt(Chapter_id,10);
-                    	if(Chapter_id == ChapterTotal){
+                    	if(Chapter_id == 4){
                     		return;
                     	}
                     	Chapter_id += 1;
                     	getCurChapterContent(Chapter_id,UIcallback);
+                    	Util.StorageSetter('page',Chapter_id);
                     }
                     return {
                     	init : init,
@@ -235,6 +289,7 @@
                     	for(var i = 0; i < jsonObj.p.length; i++){
                     		html += '<p>' + jsonObj.p[i] + '</p>';
                     	}
+                    	document.body.scrollTop = 0; //每进行一次章节的翻页默认回到顶部
                     	return html;
                     }
                     return function(data){
